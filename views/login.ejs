@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body>
+    <div class="hold-transition register-page">
+      <div class="register-box">
+        <div class="card">
+          <div class="card-body register-card-body">
+            <p class="login-box-msg">往前走，莫回头</p>
+            <div>
+              <div class="input-group mb-3">
+                <input
+                  id="username"
+                  type="text"
+                  class="form-control"
+                  placeholder="用户名"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-user"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  placeholder="输入密码"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- /.col -->
+                <div class="col-12">
+                  <button onclick="submit1()" class="btn btn-primary btn-block">
+                    登录
+                  </button>
+                </div>
+                <!-- /.col -->
+              </div>
+            </div>
+
+            <a href="/register" class="text-center" style="font-size: 16px;"
+              >还木有账号？</a
+            >
+          </div>
+        </div>
+      </div>
+      <p class="login-box-msg">既然选择了远方，留给世界的只能是地平线！</p>
+    </div>
+
+    <!-- /.register-box -->
+    <%- include('./templates/script.ejs') %>
+
+    <script>
+      //$(function () {});
+      function submit1() {
+        var username = $("#username").val().trim();
+        var password = $("#password").val().trim();
+        var flag = checkInfo(username, password);
+        if (flag)
+          $.ajax({
+            url: "/api/logincheck", // 接口
+            method: "POST",
+            data: { username: username, password: password },
+            success: function (data) {
+              console.log(data);
+              if (data.length == 1) {
+                if (data[0].level == 1) window.location.href = "/index/";
+                else if (data[0].level >= 2)
+                  window.location.href = "/admin/list";
+              } else {
+                layer.msg(
+                  "请确认用户名和密码的正确性，并保证当前账户没有被冻结"
+                );
+              }
+            },
+          });
+      }
+    </script>
+  </body>
+</html>

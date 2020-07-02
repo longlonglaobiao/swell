@@ -1,0 +1,38 @@
+#mulu {
+  display: none;
+}
+#mulu :hover {
+  cursor: pointer;
+}
+.biao-asse {
+  display: flex;
+}
+
+.biao-asse > div {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.biao-asse .biao-mulu {
+  min-width: 250px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.biao-asse .biao-mulu > div:nth-child(1) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 8px;
+}
+.biao-mulu-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #343a40;
+  color: white !important;
+  z-index: 9999;
+  display: block !important;
+}
+.biao-mulu-left .biao-tree {
+  color: white !important;
+}

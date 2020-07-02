@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('templates/header.ejs'); -%>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <%- include('templates/nav.ejs'); -%> <%-
+      include('templates/main-sidebar.ejs'); -%>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">作业提交列表</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <input
+                    type="file"
+                    style="display: none;"
+                    id="biao-file"
+                    onchange="handleFile()"
+                  />
+                  <input
+                    type="text"
+                    style="display: none;"
+                    id="uid"
+                    value="<%= uinfo.uid %>"
+                  />
+                  <input
+                    type="text"
+                    style="display: none;"
+                    id="yname"
+                    value="<%= uinfo.name %>"
+                  />
+                  <div
+                    class="card-body table-responsive p-0"
+                    style="height: 600px;"
+                  >
+                    <table class="table table-head-fixed text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>主题</th>
+                          <th>发布者</th>
+                          <th>科目</th>
+                          <th>状态</th>
+                          <th>发布日期</th>
+                          <th>提交日期</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dataBody">
+                        <tr>
+                          <td>183</td>
+                          <td>
+                            <a href="" download>
+                              <i class="fa fa-download" aria-hidden="true"></i
+                              >&nbsp;John Doe</a
+                            >
+                          </td>
+                          <td>龙龙老表</td>
+                          <td>HTML5+CSS3</td>
+                          <td><span class="text-success">已提交</span></td>
+                          <td>
+                            11-7-2014
+                          </td>
+                          <td>
+                            11-7-2014
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-warning btn-sm biao-btn-up"
+                            >
+                              重传
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>183</td>
+                          <td>
+                            <a href="" download>
+                              <i class="fa fa-download" aria-hidden="true"></i
+                              >&nbsp;John Doe</a
+                            >
+                          </td>
+                          <td>龙龙老表</td>
+                          <td>HTML5+CSS3</td>
+                          <td><span class="text-danger">未提交</span></td>
+                          <td>
+                            11-7-2014
+                          </td>
+                          <td>
+                            11-7-2014
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-primary btn-sm biao-btn-up"
+                            >
+                              上传
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include('templates/control-sidebar.ejs'); -%> <%-
+      include('templates/footer.ejs'); -%>
+    </div>
+
+    <%- include('templates/script.ejs'); -%>
+
+    <script type="text/babel">
+      $(document).ready(function () {
+        $.ajax({
+          url: "/api/worklist",
+          type: "get",
+          success: function (data) {
+            console.log(data);
+            let sHtml = "";
+            for (let i = 0; i < data.length; i++) {
+              sHtml += `
+              <tr>
+                <td>${i + 1}</td>
+                <td>
+                  <a href="${data[i].file}" download>
+                    <i class="fa fa-download" aria-hidden="true"></i
+                    >${data[i].title}</a
+                  >
+                </td>
+                <td>${data[i].name}</td>
+                <td>${data[i].subname}</td>
+                <td>${
+                  data[i].status == 0
+                    ? "<span class='text-danger'>未提交</span>"
+                    : "<span class='text-success'>已提交</span>"
+                }</td>
+                <td>
+                  ${data[i].retime}
+                </td>
+                <td>
+                  ${data[i].subtime ? data[i].subtime : "----------"}
+                </td>
+                <td>
+
+                  ${
+                    data[i].status == 0
+                      ? ""
+                      : "<button type='button' class='btn btn-warning btn-sm biao-btn-up' onclick=tooWorkUp(" +
+                        data[i].id +
+                        ",'" +
+                        data[i].title +
+                        "')>重传</button>"
+                  }
+
+                  <a href="/index/task?id=${
+                    data[i].id
+                  }" type='button' class='btn btn-primary btn-sm biao-btn-up'>详情</a>
+
+                </td>
+              </tr>
+              `;
+            }
+            $("#dataBody").html(sHtml);
+          },
+          error: function (error) {
+            console.error(error);
+            return;
+          },
+        });
+      });
+
+      function handleFile() {
+        var form = new FormData();
+        var fileVal = $("#biao-file")[0].files[0];
+        var yname = $("#yname").val();
+        var uid = $("#uid").val();
+
+        form.append("file", fileVal);
+        form.append("title", window.title);
+        form.append("yname", yname);
+        form.append("uid", uid);
+        form.append("wid", window.wid);
+
+        $.ajax({
+          url: "/api/workup",
+          type: "POST",
+          data: form,
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            if (data.affRows == 1) {
+              layer.msg("作业已重新提交");
+            } else {
+              layer.msg("作业重新提交失败。");
+            }
+          },
+        });
+      }
+
+      window.wid = null;
+      window.title = null;
+
+      function tooWorkUp(wid, title) {
+        window.wid = wid;
+        window.title = title;
+        document.getElementById("biao-file").click();
+      }
+    </script>
+  </body>
+</html>

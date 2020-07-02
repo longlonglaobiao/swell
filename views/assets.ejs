@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head 标签部分模板代码 -->
+  <head>
+    <%- include('./templates/header.ejs') %>
+
+    <link rel="stylesheet" href="/stylesheets/tree.css" />
+    <link rel="stylesheet" href="/stylesheets/assets.css" />
+  </head>
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- nav 部分模板代码 -->
+      <%- include('./templates/nav.ejs') %>
+
+      <!-- main-sidebar 部分模板代码 -->
+      <%- include('./templates/main-sidebar.ejs') %>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">课件资料</h5>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Starter Page</li>
+                </ol>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <div class="content biao-asse">
+          <div class="biao-mulu">
+            <div>
+              目录
+            </div>
+            <div>
+              <div class="biao-tree">
+                <ul>
+                  <li>
+                    <div class="biao-tree-title" id="a01">
+                      <span>
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                      </span>
+                      <span> jQuery</span>
+                    </div>
+                    <ul>
+                      <li>
+                        <div class="biao-tree-title" id="a02">
+                          <span>
+                            <i
+                              class="fa fa-plus-square-o"
+                              aria-hidden="true"
+                            ></i>
+                          </span>
+                          <span> 第一章-选择器</span>
+                        </div>
+                        <ul>
+                          <li>
+                            选择器详解
+                          </li>
+                          <li>
+                            运算符
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="biao-tree-title" id="a02">
+                          <span>
+                            <i
+                              class="fa fa-plus-square-o"
+                              aria-hidden="true"
+                            ></i>
+                          </span>
+                          <span> 第一章-选择器</span>
+                        </div>
+                        <ul>
+                          <li>
+                            选择器详解
+                          </li>
+                          <li>
+                            运算符
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="biao-right">
+            请问 HTTP 有几种请求方式及其各自的用途是什么 常用的有八种请求方式
+            GET 请求 GET 方法请求一个指定资源 POST 请求 POST
+            方法用于将实体提交到指定的资源 PUT 请求 替换某些资源 DELETE 请求
+            删除指定的资源 HEAD 请求 HEAD 方法请求一个与 GET
+            请求的响应相同的响应，但没有响应体 OPTIONS 请求
+            允许客户端查看服务器的相关参数 TRACE 请求 跟踪请求 CONNECT 请求
+            预留给能够将连接改为管道方式的代理服务器 请问从浏览器输入 URL
+            到页面显示发生了什么 在浏览器地址栏输⼊ URL
+            浏览器会先去缓存中寻找资源，如果在缓存中已经存在并且尚未过期，那么就直接利用。否则跟目标主机建立连接
+            浏览器解析 URL 组装成为 HTTP 请求报文 利用 socket 与目标 IP 建立 TCP
+            连接，俗称“三次握手” TCP 链接建⽴后开始发送 HTTP 请求
+            服务器接受请求并将响应的数据组装成为响应报⽂通过 TCP
+            连接发送回浏览器 浏览器接收响应，关闭 TCP 连接，俗称“四次握手”
+            浏览器根据响应资源的类型采用相对应的处理（假设资源为 HTML ⽂档）
+            解析 HTML ⽂档，构件 DOM 树，构造 CSSOM 树，下载相关资源,执⾏ js
+            脚本 HTML 解析过程中会逐步显示⻚⾯ 谈谈你对网站性能优化的处理
+            合并文件，减少 HTTP 请求 尽量减少 DOM 操作 服务端可以使用网络分发 将
+            js 文件放置在页面底部 进行图片压缩 减小 cookie 大小
+            将样式表放到页面顶部 请问 HTTP 状态码及其含义 1xx 这一类状态码表示
+            请求已被接受，需要继续处理 2xx 这一类状态码表示 请求已成功
+            被服务器接收 3xx 这一类状态码表示 重定向 4xx 这一类状态码表示
+            客户端错误 5xx 这一类状态码表示 服务端错误
+            谈谈你对前端浏览器存储的理解 localStorage 大概能够存储 5M
+            左右的数据,只要不手动删除数据会永久存储 sessionStorage 大概能够存储
+            5M 左右的数据,只浏览器关闭就清空 cookie 最大能够存储 4KB,
+            作为请求头的一部分 indexedDB 这是浏览器提供的本地数据库,
+            没有存储大小限制 请问 xhtml 和 html 的区别 xhtml 指的是
+            可扩展超文本标记语言，html 指的是 超文本标记语言, xhtml 相比于 html
+            在语法上面更加严格,html 标签不区分大小写 xhtml 所有标签都必须小写,在
+            xhtml 只要网页中出现一处错误，则浏览器停止解析，而 html
+            语言不会出现这种情况 谈谈渐进增强和优雅降级 渐进增强
+            指的是先针对低版本浏览器进行页面构建，先保证基本的用户需求，然后再针对高级浏览器进行功能追加，以达到更好的用户体验。
+            优雅降级
+            指的是一开始就构建完整的功能，然后再针对部分浏览器做兼容处理 DOCTYPE
+            有何作用 DOCTYPE 告知浏览器的解析器，
+            ⽤什么⽂档类型规范来解析这个⽂档 请解释 重绘、重排（回流）
+            再谈一谈处理方案 重绘
+            指的是当页面元素样式改变不影响页面布局，不影响元素位置。 重排
+            页面布局发生了改变，需要重新渲染 DOM 。 处理方案主要从减少 DOM
+            操作入手，比如可以采用文档片段 fragment
+            如果需要⼿动写动画，你认为最⼩时间间隔是多久，为什么？（阿⾥）
+            多数显示器默认频率是 60Hz ，即 1 秒刷新 60 次，所以理论上最⼩间隔为
+            1/60*1000ms ＝ 16.7ms 对于自适应布局，你有何高见 采用 rem 和 em
+            进行宽度设置 采用百分比，尽量不要固定像素 采用弹性布局
+            编写多套样式代码 媒体查询 rgba()和 opacity 的透明效果有什么不同
+            opacity 作⽤于元素，以及元素内的所有内容的透明度。⽽ rgba()
+            只作⽤于元素的颜⾊或其背景⾊，不会将内容也变透明。 ————————————————
+            版权声明：本文为CSDN博主「龙龙老表」的原创文章，遵循 CC 4.0 BY-SA
+            版权协议，转载请附上原文出处链接及本声明。
+            原文链接：https://blog.csdn.net/qq_32466937/article/details/105644886
+          </div>
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <!-- control-sidebar 部分模板代码 -->
+      <%- include('./templates/control-sidebar.ejs') %>
+
+      <!-- footer 部分模板代码 -->
+      <%- include('./templates/footer.ejs') %>
+    </div>
+    <!-- script 部分模板代码 -->
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/javascripts/tree.js"></script>
+    <script src="/javascripts/assets.js"></script>
+  </body>
+</html>

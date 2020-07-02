@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head 标签部分模板代码 -->
+  <head>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+
+    <%- include('./templates/header.ejs') %>
+    <style></style>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- nav 部分模板代码 -->
+      <%- include('./templates/nav.ejs') %>
+
+      <!-- main-sidebar 部分模板代码 -->
+      <%- include('./templates/admin-main-sidebar.ejs') %>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">19移动APP二班学习反馈</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div
+                    class="card-header"
+                    style="display: flex; flex-wrap: wrap; align-items: center;"
+                  >
+                    <div>
+                      <select
+                        class="form-control"
+                        style="width: auto; margin-right: 10px;"
+                        id="biao-select3"
+                      >
+                        <option value="1">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="2">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="3">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="4">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="5">【HTML5+CSS3】(刘富腾)</option>
+                      </select>
+                    </div>
+
+                    <select
+                      class="form-control"
+                      style="
+                        width: auto;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                      "
+                      id="month"
+                    >
+                      <option value="1">1月</option>
+                      <option value="2">2月</option>
+                      <option value="3">3月</option>
+                      <option value="4">4月</option>
+                      <option value="5">5月</option>
+                      <option value="6">6月</option>
+                      <option value="7">7月</option>
+                      <option value="8">8月</option>
+                      <option value="9">9月</option>
+                      <option value="10">10月</option>
+                      <option value="11">11月</option>
+                      <option value="12">12月</option>
+                    </select>
+
+                    <button
+                      class="btn btn-success"
+                      onclick="find()"
+                      style="width: auto; margin-right: 10px;"
+                    >
+                      开始查找
+                    </button>
+
+                    <!-- <span style="width: auto; margin-right: 10px;">
+                      作业统计
+                    </span>
+
+                    <a href="">
+                      <i class="fa fa-download" aria-hidden="true"></i>
+                      下载
+                    </a> -->
+                    <div style="display: inline-block;" onclick="down()">
+                      <a href="" id="excel" download="学习反馈.xls">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        下载
+                      </a>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div
+                    class="card-body table-responsive p-0"
+                    style="height: 600px; overflow: auto;"
+                  >
+                    <table
+                      class="table table-head-fixed text-nowrap table-bordered"
+                      id="biao-work-table"
+                      border="1"
+                    >
+                      <thead id="thead">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th>1</th>
+                          <th>2</th>
+                          <th>3</th>
+                          <th>4</th>
+                          <th>5</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody">
+                        <tr>
+                          <td>1</td>
+                          <td>John Doe</td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td>John Doe</td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                          <td class="text-red">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- control-sidebar 部分模板代码 -->
+      <%- include('./templates/control-sidebar.ejs') %>
+
+      <!-- footer 部分模板代码 -->
+      <%- include('./templates/footer.ejs') %>
+    </div>
+    <!-- script 部分模板代码 -->
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <script src="/javascripts/common.js"></script>
+
+    <script type="text/babel">
+      var d = new Date();
+      $(function () {
+        $(".select2").select2();
+        $("#biao-select3").select2();
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+        $("#month").val(d.getMonth() + 1);
+        go();
+      });
+      $("#biao-select2").change(function (e) {
+        var v = e.target.value;
+        console.log(v);
+      });
+
+      /*生产Excel*/
+      function down() {
+        var tableString = $("#biao-work-table").prop("outerHTML");
+        $(`
+        <html>
+            <head>
+              <meta charset="utf-8"/>
+            </head>
+            <body>
+              ${tableString}
+            </body>
+        </html>
+        `);
+
+        var blob = new Blob([tableString], {
+          type: "application/vnd.ms-excel",
+        });
+        var url = URL.createObjectURL(blob);
+
+        $("#excel").attr("href", url);
+        $("#excel").click();
+      }
+
+      function find() {
+        const cls = $("#biao-select2").val() - 0;
+        const subid = $("#biao-select3").val() - 0;
+        const month = $("#month").val() - 0;
+
+        console.log(cls, subid, month);
+
+        go(cls, subid, month);
+      }
+
+      /* 查找数据 */
+      function go(cid = 1, subid = 1, month = d.getMonth() + 1) {
+        $.ajax({
+          url: "/admin/api/getWorksList",
+          type: "get",
+          data: { cid: cid, subid: subid, month: month },
+          success: function (data) {
+            console.log(data);
+            let names = data.names;
+            let resData = data.resData;
+
+            let thead = "<tr><th>序号</th><th>标题</th><th>发布时间</th>";
+            let tbody = "";
+            for (let i = 0; i < names.length; i++) {
+              thead += `
+              <th>${names[i]}</th>
+              `;
+            }
+            thead += "</tr>";
+
+            for (let i = 0; i < resData.length; i++) {
+              let info = resData[i].info[0]; // 每一次作业的信息
+
+              let rows = resData[i].rows; // 作业的提交情况
+              tbody += `<tr><td>${i + 1}</td><td> <a href="${
+                info.file
+              }" download> ${info.title}</a></td><td>${info.retime}</td>`;
+              for (let j = 0; j < rows.length; j++) {
+                tbody +=
+                  rows[j].status == 0
+                    ? `
+                <td class="text-red" >
+                  <strong> &Chi;</strong>
+                </td>
+                `
+                    : `
+                <td class="text-green">
+                  <strong> &radic;</strong>
+                </td>
+                `;
+              }
+              tbody += "</tr>";
+            }
+
+            $("#thead").html(thead);
+            $("#tbody").html(tbody);
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      }
+      /*
+      (function () {
+        var D = new Date();
+        var thead = `
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+        `;
+        var tbody = "<tr>";
+        for (var i = 1; i <= 30; i++) {
+          thead += `
+            <th>${i}</th>
+            `;
+        }
+        thead += "</tr>";
+        $("#biao-work-table").find("thead").ejs(thead);
+      })();
+      */
+    </script>
+  </body>
+</html>

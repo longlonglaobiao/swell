@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <%- include('./templates/nav.ejs') %> <%-
+      include('./templates/admin-main-sidebar.ejs') %>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">19移动APP二班学习反馈</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div
+                    class="card-header"
+                    style="display: flex; flex-wrap: wrap; align-items: center;"
+                  >
+                    <div>
+                      <select
+                        class="form-control"
+                        style="width: auto; margin-right: 10px;"
+                        id="biao-select3"
+                      >
+                        <option value="1">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="2">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="3">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="4">【HTML5+CSS3】(刘富腾)</option>
+                        <option value="5">【HTML5+CSS3】(刘富腾)</option>
+                      </select>
+                    </div>
+
+                    <select
+                      class="form-control"
+                      style="
+                        width: auto;
+                        margin-right: 10px;
+                        margin-left: 10px;
+                      "
+                    >
+                      <option value="1">1月</option>
+                      <option value="2">2月</option>
+                      <option value="3">3月</option>
+                      <option value="4">4月</option>
+                      <option value="5">5月</option>
+                    </select>
+                  </div>
+
+                  <div
+                    class="card-body table-responsive p-0"
+                    style="height: 600px; overflow: auto;"
+                  >
+                    <table
+                      class="table table-head-fixed text-nowrap"
+                      id="biao-work-table"
+                    >
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>作业主题</th>
+                          <th>发布时间</th>
+                          <th>截止时间</th>
+                          <th>提交比列</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>
+                            <a href="">
+                              <i class="fa fa-download" aria-hidden="true"></i>
+                              John Doe
+                            </a>
+                          </td>
+                          <td>
+                            2020-01-29
+                          </td>
+                          <td>
+                            2020-01-29
+                          </td>
+                          <td>
+                            28/40
+                          </td>
+                          <td>
+                            <a href="">
+                              <i class="fa fa-download" aria-hidden="true"></i>
+                              下载
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include('./templates/control-sidebar.ejs') %> <%-
+      include('./templates/footer.ejs') %>
+    </div>
+
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <script src="/javascripts/common.js"></script>
+
+    <script type="text/babel">
+      $(function () {
+        $(".select2").select2();
+        $("#biao-select3").select2();
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+        /*
+        $.ajax({
+          url: "/api/subject",
+          method: "GET",
+          success: function (data) {
+            let shtml = "";
+
+            for (let i = 0; i < data.length; i++) {
+              shtml += `
+                <option value="${data[i].id}">${data[i].subname}</option>
+              `;
+            }
+            $("#biao-select3").html(shtml);
+          },
+          error: function (e) {
+            alert("请联系管理员");
+          },
+        });
+        */
+      });
+
+      $("#biao-select2").change(function (e) {
+        var v = e.target.value;
+        console.log(v);
+      });
+    </script>
+  </body>
+</html>

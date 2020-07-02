@@ -1,0 +1,78 @@
+<aside
+  class="main-sidebar sidebar-dark-primary elevation-4"
+  style="font-size: 20px;"
+>
+  <div class="sidebar">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex" onclick="userInfo()">
+      <div class="image">
+        <img
+          src="/user2-160x160.jpg"
+          class="img-circle elevation-2"
+          alt="User Image"
+        />
+      </div>
+      <div class="info">
+        <a href="#" class="d-block">
+          <%= uinfo.name %>
+        </a>
+      </div>
+    </div>
+
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <li class="nav-item">
+          <a href="/index/" class="nav-link">
+            <i class="nav-icon fa fa-list" aria-hidden="true"></i>
+            <p>
+              作业列表
+            </p>
+          </a>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a href="/index/task" class="nav-link">
+            <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+            <p>
+              作业要求
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li> -->
+        <li class="nav-item">
+          <a
+            href="http://132.232.66.197:3001/list"
+            class="nav-link"
+            target="__blank"
+          >
+            <i class="nav-icon fa fa-database"></i>
+            <p>
+              课件资料
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="https://github.com/longlonglaobiao" class="nav-link">
+            <i class="nav-icon fa fa-code"></i>
+            <p>
+              代码贡献
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/over" class="nav-link">
+            <i class="nav-icon fa fa-sign-out" aria-hidden="true"></i>
+            <p>
+              退出
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</aside>

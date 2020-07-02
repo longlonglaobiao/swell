@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head 标签部分模板代码 -->
+  <head>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- nav 部分模板代码 -->
+      <%- include('./templates/nav.ejs') %>
+
+      <!-- main-sidebar 部分模板代码 -->
+      <%- include('./templates/admin-main-sidebar.ejs') %>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">用户管理</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">用户列表</h3>
+
+                    <!-- <div class="card-tools">
+                      <ul class="pagination pagination-sm float-right">
+                        <li class="page-item">
+                          <a class="page-link" href="#">&laquo;</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="#">&raquo;</a>
+                        </li>
+                      </ul>
+                    </div> -->
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px;">#</th>
+                          <th>班级</th>
+                          <th>姓名</th>
+                          <th>账号状态</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody id="ubody">
+                        <tr>
+                          <td>1.</td>
+                          <td>19移动APP二班</td>
+                          <td>
+                            XXX
+                          </td>
+                          <td>冻结</td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-primary btn-xs"
+                            >
+                              解冻
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-warning btn-xs"
+                            >
+                              删除
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- control-sidebar 部分模板代码 -->
+      <%- include('./templates/control-sidebar.ejs') %>
+
+      <!-- footer 部分模板代码 -->
+      <%- include('./templates/footer.ejs') %>
+    </div>
+    <!-- script 部分模板代码 -->
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <script src="/javascripts/common.js"></script>
+
+    <script type="text/babel">
+      $(function () {
+        $(".select2").select2();
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+      });
+      $("#biao-select2").change(function (e) {
+        var v = e.target.value;
+        console.log(v);
+      });
+      /* 在第二个版本中所有异步操作全部封装成为 promise */
+      setTimeout(function () {
+        findUser();
+      }, 300);
+
+      /* 查询用户 */
+      function findUser() {
+        $.ajax({
+          url: "/admin/user/list",
+          type: "GET",
+          data: {
+            cid: $("#biao-select2").val(),
+          },
+          success: function (data) {
+            console.log(data);
+            var sHtml = "";
+            for (var i = 0; i < data.length; i++) {
+              sHtml += `
+              <tr>
+                <td>${i + 1}</td>
+                <td>${data[i].class_name}</td>
+                <td>
+                  ${data[i].name}
+                </td>
+                <td>
+                  ${
+                    data[i].level == 0
+                      ? "<strong class='text-warning'>冻结</strong>"
+                      : "<strong class='text-green'>正常</strong>"
+                  }
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-xs"
+                    onclick="userStatus(${data[i].uid},${data[i].level})"
+                  >
+                  ${data[i].level == 1 ? "冻结" : "解冻"}
+                    
+                  </button>
+                  <!--button
+                    type="button"
+                    class="btn btn-warning btn-xs"
+                    onclick="delUser(${data[i].uid})"
+                  >
+                    删除
+                  </button-->
+                </td>
+              </tr>
+              `;
+            }
+
+            $("#ubody").html(sHtml);
+          },
+        });
+      }
+      function userStatus(uid, level) {
+        console.log(arguments);
+        $.ajax({
+          url: "/admin/user/level",
+          type: "get",
+          data: {
+            uid: uid,
+            level: level,
+          },
+          success: function (res) {
+            if (res.affRows == 1) {
+              layer.msg("用户状态已切换", function () {
+                window.location.reload();
+              });
+            } else {
+              layer.msg("用户状态切换失败");
+            }
+          },
+        });
+      }
+      /*
+      function delUser(uid) {
+        $.ajax({
+          url: "/admin/user/del",
+          type: "get",
+          data: {
+            uid: uid,
+          },
+          success: function (res) {
+            if (res.affRows == 1) {
+              layer.msg("用户已被删除", function () {
+                window.location.reload();
+              });
+            } else {
+              layer.msg("删除用户失败");
+            }
+          },
+        });
+      }
+      */
+    </script>
+  </body>
+</html>

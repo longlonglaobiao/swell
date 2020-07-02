@@ -1,0 +1,47 @@
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/adminlte/adminlte.min.js"></script>
+<script src="/plugins/layer-v3.1.1/layer/layer.js"></script>
+<script src="/javascripts/babel.min.js"></script>
+
+<script>
+  /* 检查用户的输入是否正确 */
+  function checkInfo() {
+    console.log(arguments);
+    for (var i = 0; i < arguments.length; i++) {
+      if (!arguments[i]) {
+        layer.msg("请填写完整必要的信息再次提交");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /* 用户信息 */
+  function userInfo() {
+    layer.open({
+      type: 2,
+      area: ["400px", "500px"],
+      title: "用户信息修改",
+      content: "/index/userinfo",
+      success: function (layero, index) {},
+    });
+  }
+
+  $.ajax({
+    url: "/api/subject",
+    method: "GET",
+    success: function (data) {
+      var shtml = "";
+
+      for (var i = 0; i < data.length; i++) {
+        shtml +=
+          " <option value=" + data[i].id + ">" + data[i].subname + "</option>";
+      }
+      $("#biao-select3").html(shtml);
+    },
+    error: function (e) {
+      alert("请联系管理员");
+    },
+  });
+</script>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css" />
+
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <%- include('./templates/nav.ejs') %> <%-
+      include('./templates/admin-main-sidebar.ejs') %>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">作业发布</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div
+                    class="card-header"
+                    style="display: flex; flex-wrap: wrap; align-items: center;"
+                  >
+                    <span>科目：</span>
+                    <div style="margin-right: 10px;">
+                      <select
+                        class="select2"
+                        style="width: 100%;"
+                        id="biao-select3"
+                      >
+                      </select>
+                    </div>
+                    <span>主题：</span>
+                    <div style="margin-right: 10px;">
+                      <input
+                        id="title"
+                        type="text"
+                        class="form-control"
+                        placeholder="作业主题"
+                      />
+                    </div>
+
+                    <div class="" style="margin-right: 10px;">
+                      <a class="btn btn-primary" onclick="chooseFile()">附件</a>
+                      <input
+                        type="file"
+                        id="attachFile"
+                        style="display: none;"
+                      />
+                    </div>
+
+                    <a class="btn btn-success" onclick="submit1()">提交</a>
+
+                    <span id="fileInfo" style="margin-left: 10px;"></span>
+                  </div>
+
+                  <div class="card-body table-responsive p-0">
+                    <textarea class="textarea" id="content"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include('./templates/control-sidebar.ejs') %> <%-
+      include('./templates/footer.ejs') %>
+    </div>
+
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/javascripts/common.js"></script>
+
+    <script type="text/babel">
+      $(function () {
+        $("#biao-select2").select2();
+        $("#biao-select3").select2();
+
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+        $(".textarea").summernote({
+          lang: "zh-CN",
+          placeholder: "说点儿什么",
+          minHeight: "400px",
+        });
+
+        /*
+        $.ajax({
+          url: "/api/subject",
+          method: "GET",
+          success: function (data) {
+            //console.log(data);
+            let shtml = "";
+
+            for (let i = 0; i < data.length; i++) {
+              shtml += `
+                <option value="${data[i].id}">${data[i].subname}</option>
+              `;
+            }
+            $("#biao-select3").html(shtml);
+          },
+          error: function (e) {
+            alert("请联系管理员");
+          },
+        });
+        */
+        document
+          .getElementById("attachFile")
+          .addEventListener("change", handleFile);
+      });
+
+      /* 作业附件选择 */
+      function chooseFile() {
+        $("#attachFile").click();
+      }
+
+      /* 文件选择以后 */
+      function handleFile() {
+        var fileInfo = $("#attachFile").val().split("\\");
+        var info = fileInfo[fileInfo.length - 1] + "";
+        $("#fileInfo").html(info);
+      }
+
+      /* 数据的提交 */
+      function submit1() {
+        var formData = new FormData();
+
+        var subject = $("#biao-select3").val(); // 学科id
+        var title = $("#title").val(); // 作业主题
+        var fileInfo = $("#attachFile")[0].files[0]; //$("#attachFile").val(); // 附件
+        //console.log(fileInfo);
+        var ruid = $("#uid").val(); // 当前用户id
+        var content = $("#content").summernote("code"); // 富文本数据
+        var cid = $("#biao-select2").val(); // 班级id
+
+        formData.append("subject", subject);
+        formData.append("title", title);
+        formData.append("file", fileInfo);
+        formData.append("ruid", ruid);
+        formData.append("content", content);
+        formData.append("cid", cid);
+
+        $.ajax({
+          url: "/admin/api/task",
+          type: "POST",
+          processData: false,
+          contentType: false,
+          data: formData,
+          success: function (res) {
+            console.log(res);
+            if (res.affRows == 1) {
+              layer.msg("数据提交成功");
+            } else {
+              layer.msg("数据提交失败");
+            }
+          },
+          error: function (err) {
+            layer.msg("请联系管理员");
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

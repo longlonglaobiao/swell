@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- head 标签部分模板代码 -->
+  <head>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- nav 部分模板代码 -->
+      <%- include('./templates/nav.ejs') %>
+
+      <!-- main-sidebar 部分模板代码 -->
+      <%- include('./templates/admin-main-sidebar.ejs') %>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">课程管理</h5>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">List Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">班级列表</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px;">#</th>
+                          <th>班级名称</th>
+                          <th>班级人数</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1.</td>
+                          <td>19移动APP二班</td>
+                          <td>
+                            39
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              class="btn btn-xs btn-primary"
+                            >
+                              Default
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+              <!-- /.card -->
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">课程列表</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px;">#</th>
+                          <th>课程名称</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>大前端</td>
+
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- control-sidebar 部分模板代码 -->
+      <%- include('./templates/control-sidebar.ejs') %>
+
+      <!-- footer 部分模板代码 -->
+      <%- include('./templates/footer.ejs') %>
+    </div>
+    <!-- script 部分模板代码 -->
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <script src="/javascripts/common.js"></script>
+
+    <script type="text/babel">
+      $(function () {
+        $(".select2").select2();
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+      });
+      $("#biao-select2").change(function (e) {
+        var v = e.target.value;
+        console.log(v);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./templates/header.ejs'); -%>
+
+    <style>
+      #ribbon {
+        font-size: 30px;
+      }
+      #ribbon:hover {
+        cursor: pointer;
+        color: #007bff !important;
+      }
+      @media (max-width: 1200px) {
+        #ribbon {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <%- include('./templates/nav.ejs'); -%> <%-
+      include('./templates/main-sidebar.ejs'); -%>
+
+      <div class="content-wrapper">
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h5 class="m-0 text-dark">本次作业要求</h5>
+              </div>
+
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Starter Page</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="callout callout-info" id="filedown">
+                  <h6>
+                    附件: &emsp;
+                    <a
+                      style="text-decoration: none;"
+                      class="text-primary"
+                      href="<%= detail.file %>"
+                      download
+                      ><i class="fa fa-download" aria-hidden="true"></i>
+                      下载
+                    </a>
+                  </h6>
+                </div>
+
+                <div class="card upTask-parent">
+                  <div class="ribbon-wrapper ribbon-xl">
+                    <div class="ribbon bg-danger text-x2" id="ribbon">
+                      <span>提交作业</span>
+                      <input
+                        type="file"
+                        id="biao-file"
+                        onchange="handleFile()"
+                        style="display: none;"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p class="text-center">
+                          <strong><%= detail.title %></strong>
+                          <input
+                            type="text"
+                            style="display: none;"
+                            id="mtitle"
+                            value="<%= detail.title %>"
+                          />
+                          <input
+                            type="text"
+                            style="display: none;"
+                            id="wid"
+                            value="<%= detail.wid %>"
+                          />
+                          <input
+                            type="text"
+                            style="display: none;"
+                            id="uid"
+                            value="<%= uinfo.uid %>"
+                          />
+                          <input
+                            type="text"
+                            style="display: none;"
+                            id="yname"
+                            value="<%= uinfo.name %>"
+                          />
+                        </p>
+                        <p
+                          class="text-center"
+                          style="font-size: 13px; color: #999;"
+                        >
+                          <span>发布日期：<%= detail.retime %></span>
+                          &emsp;&emsp;
+                          <span>发布人：<%= detail.name %></span>
+                          &emsp;&emsp;
+                          <span>科目：<%= detail.subname %></span>
+                        </p>
+
+                        <p class="text-center">
+                          <%- detail.content %>
+                          <br />
+                          <br /><br /><br /><br />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include('./templates/control-sidebar.ejs'); -%> <%-
+      include('./templates/footer.ejs'); -%>
+    </div>
+    <%- include('./templates/script.ejs'); -%>
+    <script type="text/babel">
+      $(document).ready(function () {
+        $("#ribbon").click(function () {
+          document.getElementById("biao-file").click();
+        });
+      });
+
+      function handleFile(data) {
+        var form = new FormData();
+        var fileVal = $("#biao-file")[0].files[0];
+        var mtitle = $("#mtitle").val();
+        var yname = $("#yname").val();
+        var uid = $("#uid").val();
+        var wid = $("#wid").val();
+
+        form.append("file", fileVal);
+        form.append("title", mtitle);
+        form.append("yname", yname);
+        form.append("uid", uid);
+        form.append("wid", wid);
+
+        $.ajax({
+          url: "/api/workup",
+          type: "POST",
+          data: form,
+          contentType: false,
+          processData: false,
+          success: function (data) {
+            if (data.affRows == 1) {
+              layer.msg("作业已提交");
+            } else {
+              layer.msg("作业提交失败。");
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

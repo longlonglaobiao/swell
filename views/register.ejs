@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .biao-avator-choose {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #ced4da;
+        box-sizing: border-box;
+        padding: 9px 18px;
+        border-radius: 0.25rem;
+        height: 56px;
+      }
+      .biao-avator-choose span {
+        font-size: 18px;
+        line-height: 36px;
+        text-overflow: ellipsis;
+      }
+    </style>
+    <link rel="stylesheet" href="/plugins/adminlte/select2.css" />
+    <%- include('./templates/header.ejs') %>
+  </head>
+  <body>
+    <div class="hold-transition register-page">
+      <div class="register-box">
+        <div class="card">
+          <div class="card-body register-card-body">
+            <p class="login-box-msg">往前走，莫回头</p>
+            <div id="form1">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="真实姓名"
+                  name="name"
+                  id="name"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-user"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="用户名"
+                  name="username"
+                  id="username"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-user"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <select
+                  class="select2"
+                  style="width: 100%;"
+                  id="biao-cls"
+                  name="biao-cls"
+                  id="biao-cls"
+                >
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="输入密码"
+                  name="password"
+                  id="password"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fa fa-lock"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <button onclick="submit1()" class="btn btn-primary btn-block">
+                    提交
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <a href="/login" class="text-center" style="font-size: 16px;"
+              >我已经注册过了</a
+            >
+          </div>
+        </div>
+      </div>
+      <p class="login-box-msg">同一个用户只能成功注册一次</p>
+    </div>
+
+    <%- include('./templates/script.ejs') %>
+
+    <script src="/plugins/adminlte/select2.js"></script>
+    <!-- <script src="/plugins/bs-custom-file-input/bs-custom-file-input.js"></script> -->
+    <script type="text/babel">
+      $(function () {
+        //bsCustomFileInput.init();
+
+        $(".select2").select2();
+        //Initialize Select2 Elements
+        $(".select2bs4").select2({
+          theme: "bootstrap4",
+        });
+
+        $.ajax({
+          url: "/api/cls",
+          method: "get",
+          success: function (data) {
+            console.log(data);
+            let shtml = "";
+
+            for (let i = 0; i < data.length; i++) {
+              shtml +=
+                " <option value=" +
+                data[i].id +
+                ">" +
+                data[i].class_name +
+                "</option> ";
+            }
+            $("#biao-cls").html(shtml);
+          },
+          error: function (e) {
+            alert("请联系管理员");
+          },
+        });
+      });
+
+      function submit1() {
+        var name = $("#name").val().trim();
+        var username = $("#username").val().trim();
+        var biaoCls = $("#biao-cls").val().trim();
+        var password = $("#password").val().trim();
+        var flag = checkInfo(name, username, biaoCls, password);
+        //if (!name || !username || !password) {
+        //  layer.msg("请填写完整必要的信息再次提交");
+        //  return;
+        //}
+        if (flag)
+          $.ajax({
+            url: "/api/register",
+            method: "POST",
+            data: {
+              name: name,
+              username: username,
+              biaoCls: biaoCls,
+              password: password,
+            },
+            success: function (data) {
+              if (data.affRows == 1) {
+                layer.msg("数据已经提交，等待管理员审核");
+              } else {
+                layer.msg("数据提交出现错误，请更换用户名后再重试");
+              }
+            },
+            error: function () {
+              layer.msg("数据提交出现错误，请更换用户名后再重试");
+            },
+          });
+      }
+    </script>
+  </body>
+</html>
